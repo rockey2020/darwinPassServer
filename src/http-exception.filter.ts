@@ -1,5 +1,5 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
-import { Request, Response } from 'express';
+import {ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus} from '@nestjs/common';
+import {Request, Response} from 'express';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -11,11 +11,15 @@ export class HttpExceptionFilter implements ExceptionFilter {
             exception instanceof HttpException
                 ? exception.getStatus()
                 : HttpStatus.INTERNAL_SERVER_ERROR;
-
+        //参数错误
+        if (statusCode === 400) {
+            const _message = (exception.getResponse() as any).message as Array<string>
+            if (_message.length !== 0) exception.message = _message[0]
+        }
         const message = exception.message ? exception.message : `${statusCode >= 500 ? 'Service Error' : 'Client Error'}`;
         const errorResponse = {
             statusCode,
-            data:  null,
+            data: null,
             message,
             errorCode: 1, // 自定义code
             url: request.originalUrl, // 错误的url地址

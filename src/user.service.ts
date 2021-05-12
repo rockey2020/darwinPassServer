@@ -6,7 +6,8 @@ export class UserService {
   fetchUser(): UserEntity {
     return new UserEntity();
   }
-  login(): UserEntity {
+  login(body): UserEntity {
+    console.log(body)
     return new UserEntity();
   }
   forgotPassword(): UserEntity {

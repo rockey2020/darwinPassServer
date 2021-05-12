@@ -1,6 +1,7 @@
-import {Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import UserEntity from "./user.entity";
 import {UserService} from "./user.service";
+import {LoginDtos} from "./user.dtos";
 
 @Controller("user")
 export class UserController {
@@ -13,8 +14,8 @@ export class UserController {
     }
 
     @Post("/login")
-    login(): UserEntity {
-        return this.userService.login();
+    login(@Body() body: LoginDtos): UserEntity {
+        return this.userService.login(body);
     }
 
     @Post("/forgotPassword")
