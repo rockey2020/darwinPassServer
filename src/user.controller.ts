@@ -1,7 +1,6 @@
 import {Body, Controller, Get, Post, UseGuards, Query} from '@nestjs/common';
 import {UserService} from "./user.service";
 import {FetchUserDtos, LoginDtos, RegisterDtos} from "./user.dtos";
-import {AuthGuard} from "@nestjs/passport";
 import {JwtAuthGuard} from "./jwt-auth.guard";
 
 @Controller("user")
