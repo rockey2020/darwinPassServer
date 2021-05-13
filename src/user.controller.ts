@@ -1,7 +1,6 @@
 import {Body, Controller, Get, Post} from '@nestjs/common';
-import UserEntity from "./user.entity";
 import {UserService} from "./user.service";
-import {LoginDtos} from "./user.dtos";
+import {LoginDtos, RegisterDtos} from "./user.dtos";
 
 @Controller("user")
 export class UserController {
@@ -9,22 +8,27 @@ export class UserController {
     }
 
     @Get("/fetchUser")
-    fetchUser(): UserEntity {
+    fetchUser() {
         return this.userService.fetchUser();
     }
 
     @Post("/login")
-    login(@Body() body: LoginDtos): UserEntity {
+    login(@Body() body: LoginDtos) {
         return this.userService.login(body);
     }
 
+    @Post("/register")
+    register(@Body() body: RegisterDtos) {
+        return this.userService.register(body);
+    }
+
     @Post("/forgotPassword")
-    forgotPassword(): UserEntity {
+    forgotPassword() {
         return this.userService.forgotPassword();
     }
 
     @Post("/updateUser")
-    updateUser(): UserEntity {
+    updateUser() {
         return this.userService.updateUser();
     }
 

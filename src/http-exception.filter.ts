@@ -22,7 +22,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
             data: null,
             message,
             errorCode: 1, // 自定义code
-            url: request.originalUrl, // 错误的url地址
+            url: request.originalUrl,
         };
         // 设置返回的状态码、请求头、发送错误信息
         response.status(statusCode);
