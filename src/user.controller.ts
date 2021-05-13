@@ -1,15 +1,18 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post, UseGuards, Query} from '@nestjs/common';
 import {UserService} from "./user.service";
-import {LoginDtos, RegisterDtos} from "./user.dtos";
+import {FetchUserDtos, LoginDtos, RegisterDtos} from "./user.dtos";
+import {AuthGuard} from "@nestjs/passport";
+import {JwtAuthGuard} from "./jwt-auth.guard";
 
 @Controller("user")
 export class UserController {
     constructor(private readonly userService: UserService) {
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get("/fetchUser")
-    fetchUser() {
-        return this.userService.fetchUser();
+    fetchUser(@Query() query: FetchUserDtos) {
+        return this.userService.fetchUser(Number(query.id));
     }
 
     @Post("/login")
@@ -27,6 +30,7 @@ export class UserController {
         return this.userService.forgotPassword();
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post("/updateUser")
     updateUser() {
         return this.userService.updateUser();

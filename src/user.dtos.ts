@@ -28,3 +28,9 @@ export class RegisterDtos {
     @IsNumber()
     readonly maxIdleTime: number;
 }
+
+
+export class FetchUserDtos {
+    @IsString()
+    readonly id: string;
+}

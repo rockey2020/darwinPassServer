@@ -6,6 +6,8 @@ import {UserService} from "./user.service";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {User} from "./entities/User";
 import {Password} from "./entities/Password";
+import {JwtModule} from "@nestjs/jwt";
+import {JwtStrategy} from "./jwt.strategy";
 
 @Module({
     imports: [
@@ -20,10 +22,14 @@ import {Password} from "./entities/Password";
             synchronize: false,//同步表
             entityPrefix: "darwinPass_"//表统一前缀
         }),
-        TypeOrmModule.forFeature([User, Password])
+        TypeOrmModule.forFeature([User, Password]),
+        JwtModule.register({
+            secret: "!hGfQmpTfLI#7R!f9UOnD7H&jR5XTB9U27Xw@8uA",
+            signOptions: {expiresIn: '7d'},
+        }),
     ],
     controllers: [AppController, UserController],
-    providers: [AppService, UserService],
+    providers: [AppService, UserService, JwtStrategy],
 })
 export class AppModule {
 }
