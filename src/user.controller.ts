@@ -1,38 +1,49 @@
-import {Body, Controller, Get, Post, UseGuards, Query} from '@nestjs/common';
+import {Body, Controller, Get, Post, UseGuards, Query, Request, HttpException, HttpStatus} from '@nestjs/common';
 import {UserService} from "./user.service";
-import {FetchUserDtos, LoginDtos, RegisterDtos} from "./user.dtos";
+import {ForgotPasswordDtos, LoginDtos, RegisterDtos, UpdateUserDtos} from "./user.dtos";
 import {JwtAuthGuard} from "./jwt-auth.guard";
+import {CaptchaService} from "./captcha.service";
 
 @Controller("user")
 export class UserController {
-    constructor(private readonly userService: UserService) {
+    constructor(private readonly userService: UserService, private readonly captchaService: CaptchaService) {
     }
 
     @UseGuards(JwtAuthGuard)
     @Get("/fetchUser")
-    fetchUser(@Query() query: FetchUserDtos) {
-        return this.userService.fetchUser(Number(query.id));
+    async fetchUser(@Request() req) {
+        const id = req.user.id
+        return this.userService.fetchUser(id);
     }
 
     @Post("/login")
-    login(@Body() body: LoginDtos) {
+    async login(@Body() body: LoginDtos) {
         return this.userService.login(body);
     }
 
     @Post("/register")
-    register(@Body() body: RegisterDtos) {
-        return this.userService.register(body);
+    async register(@Body() body: RegisterDtos) {
+        if (await this.captchaService.validateCaptchaCode(body.captchaId, body.captchaCode)) {
+            return this.userService.register(body);
+        } else {
+            throw new HttpException({message: "验证码错误"}, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Post("/forgotPassword")
-    forgotPassword() {
-        return this.userService.forgotPassword();
+    async forgotPassword(@Body() body: ForgotPasswordDtos) {
+        if (await this.captchaService.validateCaptchaCode(body.captchaId, body.captchaCode)) {
+            return this.userService.forgotPassword(body);
+        } else {
+            throw new HttpException({message: "验证码错误"}, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @UseGuards(JwtAuthGuard)
     @Post("/updateUser")
-    updateUser() {
-        return this.userService.updateUser();
+    async updateUser(@Body() body: UpdateUserDtos, @Request() req) {
+        const id = req.user.id
+        return this.userService.updateUser(body, id);
     }
 
 }

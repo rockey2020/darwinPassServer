@@ -11,11 +11,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
             exception instanceof HttpException
                 ? exception.getStatus()
                 : HttpStatus.INTERNAL_SERVER_ERROR;
-        //参数错误
+        // //参数错误
         if (statusCode === 400) {
-            const _message = (exception.getResponse() as any).message as Array<string>
-            if (_message.length !== 0) exception.message = _message[0]
+            const _message = (exception.getResponse() as any).message
+            if ((_message instanceof Array) && _message.length !== 0) exception.message = _message[0]
         }
+        console.log((exception.getResponse() as any).message)
         const message = exception.message ? exception.message : `${statusCode >= 500 ? 'Service Error' : 'Client Error'}`;
         const errorResponse = {
             statusCode,
