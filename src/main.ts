@@ -11,7 +11,7 @@ async function bootstrap() {
     // 全局注册成功的过滤器
     app.useGlobalInterceptors(new TransformInterceptor());
     // 全局使用管道
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({forbidUnknownValues: true, whitelist: true}));
     await app.listen(48480);
 }
 
