@@ -3,6 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {User} from "./entities/User";
 import {JwtService} from "@nestjs/jwt";
+import {ForgotPasswordDtos} from "./user.dtos";
 
 @Injectable()
 export class UserService {
@@ -52,8 +53,13 @@ export class UserService {
         });
     }
 
-    async forgotPassword(body) {
-        return {};
+    async forgotPassword(body: ForgotPasswordDtos) {
+        const {email, password} = body
+        return this.usersRepository.update({email}, {password}).then(user => {
+            return user
+        }).catch(err => {
+            throw new HttpException({message: "修改密码失败"}, HttpStatus.BAD_REQUEST)
+        });
     }
 
     async updateUser(body, id) {
