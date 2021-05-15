@@ -23,8 +23,8 @@ export class User {
     @Column()
     password: string;
 
-    @Column()
-    maxIdleTime: number;
+    @Column({default: 7 * 24 * 60 * 60})
+    maxIdleTime: number;//单位: 秒  最大空闲七天  每七天输一次密码
 
     @CreateDateColumn()
     createdDate: Date;
