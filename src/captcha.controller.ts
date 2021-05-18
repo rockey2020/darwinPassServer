@@ -7,9 +7,9 @@ export class CaptchaController {
     constructor(private readonly captchaService: CaptchaService) {
     }
 
-    @Get("/getCaptchaCodeByEmail")
-    async getCaptchaCodeByEmail(@Body() body: getCaptchaCodeByEmail) {
-        return this.captchaService.getCaptchaCodeByEmail(body);
+    @Post("/fetchCaptchaCodeByEmail")
+    async fetchCaptchaCodeByEmail(@Body() body: getCaptchaCodeByEmail) {
+        return this.captchaService.fetchCaptchaCodeByEmail(body);
     }
 
 }

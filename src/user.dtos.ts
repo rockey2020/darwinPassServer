@@ -1,4 +1,15 @@
-import {IsEmail,IsOptional, IsNumber, IsString, IsUUID, Matches, MaxLength, MinLength} from 'class-validator';
+import {
+    IsEmail,
+    IsOptional,
+    IsNumber,
+    IsString,
+    IsUUID,
+    Matches,
+    MaxLength,
+    MinLength,
+    Min,
+    Validate
+} from 'class-validator';
 
 export class LoginDtos {
     @IsString()
@@ -26,7 +37,9 @@ export class RegisterDtos {
     readonly username: string;
 
     @IsNumber()
-    readonly maxIdleTime: number;
+    @Min(0)
+    @IsOptional()
+    readonly maxIdleTime: number = 7 * 24 * 60 * 60;//单位: 秒  最大空闲七天  每七天输一次密码
 
     @IsString()
     readonly captchaCode: string;
@@ -78,6 +91,7 @@ export class UpdateUserDtos {
     readonly username: string;
 
     @IsNumber()
+    @Min(0)
     @IsOptional()
     readonly maxIdleTime: number;
 }

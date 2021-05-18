@@ -4,7 +4,7 @@ import Email from "./email";
 
 @Injectable()
 export class CaptchaService {
-    async getCaptchaCodeByEmail(body) {
+    async fetchCaptchaCodeByEmail(body) {
         const generateCaptchaCode = await CaptchaQueueController.generateCaptchaCode()
         const captchaId = generateCaptchaCode.captchaId
         const captchaCode = generateCaptchaCode.captchaCode

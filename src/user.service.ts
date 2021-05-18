@@ -45,10 +45,12 @@ export class UserService {
     }
 
     async register(body) {
+        console.log(body)
         return this.usersRepository.save(body).then(user => {
             delete user.password
             return user
         }).catch(err => {
+            console.log(err)
             throw new HttpException({message: "该邮箱已存在"}, HttpStatus.BAD_REQUEST)
         });
     }
