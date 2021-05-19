@@ -46,10 +46,8 @@ export class UserService {
     }
 
     async register(body) {
-        console.log(body)
         return this.usersRepository.save(body).then(user => {
-            delete user.password
-            return user
+            return null
         }).catch(err => {
             console.log(err)
             throw new HttpException({message: "该邮箱已存在"}, HttpStatus.BAD_REQUEST)
@@ -59,7 +57,8 @@ export class UserService {
     async forgotPassword(body: ForgotPasswordDtos) {
         const {email, password} = body
         return this.usersRepository.update({email}, {password}).then(user => {
-            return user
+            if (!user.affected || user.affected === 0) throw new Error('修改密码失败')
+            return null
         }).catch(err => {
             throw new HttpException({message: "修改密码失败"}, HttpStatus.BAD_REQUEST)
         });
@@ -67,7 +66,7 @@ export class UserService {
 
     async updateUser(body, id) {
         return this.usersRepository.update(id, body).then(user => {
-            return user
+            return null
         }).catch(err => {
             throw new HttpException({message: "修改用户资料失败"}, HttpStatus.BAD_REQUEST)
         });
