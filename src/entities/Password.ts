@@ -24,10 +24,10 @@ export class Password {
     title: string;
 
     @Column()
-    username: number;
+    username: string;
 
     @Column()
-    password: number;
+    password: string;
 
     @CreateDateColumn()
     createdDate: Date;

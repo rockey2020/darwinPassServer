@@ -10,6 +10,8 @@ import {JwtModule} from "@nestjs/jwt";
 import {JwtStrategy} from "./jwt.strategy";
 import {CaptchaController} from "./captcha.controller";
 import {CaptchaService} from "./captcha.service";
+import {PasswordController} from "./password.controller";
+import {PasswordService} from "./password.service";
 
 @Module({
     imports: [
@@ -30,8 +32,8 @@ import {CaptchaService} from "./captcha.service";
             signOptions: {expiresIn: '7d'},
         }),
     ],
-    controllers: [AppController, UserController, CaptchaController],
-    providers: [AppService, UserService, JwtStrategy, CaptchaService],
+    controllers: [AppController, UserController, CaptchaController, PasswordController],
+    providers: [AppService, UserService, JwtStrategy, CaptchaService, PasswordService],
 })
 export class AppModule {
 }
