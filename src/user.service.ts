@@ -36,6 +36,7 @@ export class UserService {
 
     async login(body) {
         return this.validateUser(body).then(res => {
+            if (!res) throw new HttpException({message: "邮箱或密码错误"}, HttpStatus.BAD_REQUEST)
             const user = {...res, authorization: ""}
             if (res) {
                 user.authorization = this.jwtService.sign(JSON.parse(JSON.stringify(res)))
