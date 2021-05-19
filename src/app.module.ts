@@ -23,7 +23,6 @@ import {PasswordService} from "./password.service";
             password: 'root',
             database: 'darwinPassDatabase',
             entities: [User, Password],
-            synchronize: false,//同步表
             entityPrefix: "darwinPass_"//表统一前缀
         }),
         TypeOrmModule.forFeature([User, Password]),

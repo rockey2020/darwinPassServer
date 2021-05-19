@@ -18,4 +18,14 @@ export class PasswordService {
             return passwordList[0] || []
         });
     }
+
+    async batchCreatePassword(id: number, body) {
+        const {list} = body
+        for (let i of list) {
+            i.user = id
+        }
+        return this.passwordsRepository.insert(list).then(list => {
+            return null
+        });
+    }
 }
