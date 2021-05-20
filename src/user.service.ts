@@ -49,7 +49,6 @@ export class UserService {
         return this.usersRepository.save(body).then(user => {
             return null
         }).catch(err => {
-            console.log(err)
             throw new HttpException({message: "该邮箱已存在"}, HttpStatus.BAD_REQUEST)
         });
     }

@@ -28,4 +28,22 @@ export class PasswordService {
             return null
         });
     }
+
+
+    async batchDeletePassword(id: number, body) {
+        const {ids} = body
+        return this.passwordsRepository.createQueryBuilder()
+            .where("user.id = :userId and id in (:ids)", {userId: id, ids})
+            .delete()
+            .execute()
+            .then(res => {
+                return null
+            })
+    }
+
+    async updatePassword(id: number, body) {
+        return this.passwordsRepository.update({id: body.id, user: {id}}, body).then(password => {
+            return null
+        });
+    }
 }
