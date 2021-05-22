@@ -43,7 +43,7 @@ export class UserController {
     @Post("/updateUser")
     async updateUser(@Body() body: UpdateUserDtos, @Request() req) {
         const id = req.user.id
-        return this.userService.updateUser(body, id);
+        return this.userService.updateUser(id, body);
     }
 
 }

@@ -63,7 +63,7 @@ export class UserService {
         });
     }
 
-    async updateUser(body, id) {
+    async updateUser(id, body) {
         return this.usersRepository.update(id, body).then(user => {
             return null
         }).catch(err => {
