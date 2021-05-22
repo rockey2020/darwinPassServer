@@ -23,7 +23,8 @@ import {PasswordService} from "./password.service";
             password: 'root',
             database: 'darwinPassDatabase',
             entities: [User, Password],
-            entityPrefix: "darwinPass_"//表统一前缀
+            entityPrefix: "darwinPass_",//表统一前缀
+            // synchronize:true
         }),
         TypeOrmModule.forFeature([User, Password]),
         JwtModule.register({

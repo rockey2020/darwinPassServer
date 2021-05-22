@@ -14,13 +14,13 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({length: 12})
+    @Column({type: "varchar", length: 100})
     username: string;
 
-    @Column({unique: true})
+    @Column({type: "varchar", length: 100, unique: true})
     email: string;
 
-    @Column()
+    @Column({type: "varchar",length:100})
     password: string;
 
     @Column()

@@ -14,19 +14,19 @@ export class Password {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({type: "varchar", length: 3000, nullable: true})
     url: string;
 
-    @Column()
+    @Column({type: "varchar", length: 10000, nullable: true})
     notes: string;
 
-    @Column()
+    @Column({type: "varchar", length: 100, nullable: true})
     title: string;
 
-    @Column()
+    @Column({type: "varchar", length: 100, nullable: true})
     username: string;
 
-    @Column()
+    @Column({type: "varchar", length: 100, nullable: true})
     password: string;
 
     @CreateDateColumn()
