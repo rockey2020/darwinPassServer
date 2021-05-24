@@ -28,7 +28,7 @@ import {PasswordService} from "./password.service";
         }),
         TypeOrmModule.forFeature([User, Password]),
         JwtModule.register({
-            secret: "!hGfQmpTfLI#7R!f9UOnD7H&jR5XTB9U27Xw@8uA",
+            secret: "!hGfQmpTfLI#7R!f9UOnD7H&bfsjR5XTB9U27Xw@8uA",
             signOptions: {expiresIn: '7d'},
         }),
     ],
