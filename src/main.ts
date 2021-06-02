@@ -3,6 +3,7 @@ import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import {HttpExceptionFilter} from './http-exception.filter';
 import {TransformInterceptor} from "./transform.interceptor";
+import ProtobufInterceptor from "./protobuf.interceptor";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {cors: true});
@@ -25,6 +26,8 @@ async function bootstrap() {
             return super.transform(newValue, metadata);
         }
     }
+
+    app.useGlobalPipes(new ProtobufInterceptor())
 
     app.useGlobalPipes(new ValidationPipe2({
         forbidUnknownValues: true,

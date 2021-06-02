@@ -2,6 +2,7 @@ import {Injectable, NestInterceptor, ExecutionContext, CallHandler} from '@nestj
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Request, Response} from "express";
+import ProtobufAdapter from "./adapter/protobuf";
 
 @Injectable()
 export class TransformInterceptor implements NestInterceptor {
@@ -17,7 +18,8 @@ export class TransformInterceptor implements NestInterceptor {
                     errorCode: 1, // 自定义code
                     url: request.originalUrl,
                 };
-                return successResponse
+
+                return {encryptedData: new ProtobufAdapter({data: successResponse}).make()}
             }),
         );
     }

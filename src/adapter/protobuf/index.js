@@ -1,6 +1,6 @@
-import CryptoJS from "crypto-js";
+import * as CryptoJS from "crypto-js";
 import { nanoid } from "nanoid";
-import pako from "pako";
+import * as pako from "pako";
 
 import { RequestBody } from "./requestBody_pb";
 
