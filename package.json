@@ -29,7 +29,9 @@
     "@nestjs/typeorm": "^7.1.5",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "crypto-js": "^4.0.0",
     "mysql2": "^2.2.5",
+    "nanoid": "^3.1.23",
     "pako": "^2.0.3",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
@@ -39,9 +41,7 @@
     "sendmail": "^1.6.1",
     "typeorm": "^0.2.32",
     "uuid": "^8.3.2",
-    "crypto-js": "^4.0.0",
-    "google-protobuf": "^3.17.1",
-    "nanoid": "^3.1.23"
+    "protobufjs": "^6.11.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
