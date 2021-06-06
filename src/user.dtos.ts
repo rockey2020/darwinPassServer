@@ -39,7 +39,7 @@ export class RegisterDtos {
     @IsNumber()
     @Min(0)
     @IsOptional()
-    readonly maxIdleTime: number = 7 * 24 * 60 * 60;//单位: 秒  最大空闲七天  每七天输一次密码
+    readonly maxIdleTime: number = 7 * 24 * 60;//单位: 分  多久退出登录  默认七天
 
     @IsString()
     readonly captchaCode: string;
