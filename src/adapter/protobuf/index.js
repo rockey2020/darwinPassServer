@@ -4,7 +4,7 @@ import * as pako from "pako";
 
 import * as RequestBody from "./requestBody";
 
-const requestBody = RequestBody.lookup("org.darwinPass.requestBody").RequestBody;
+const requestBody = RequestBody.org.darwinPass.requestBody.RequestBody;
 
 class ProtobufAdapter {
   requestBody = null;
@@ -66,14 +66,14 @@ class ProtobufAdapter {
 
   static string2Binary(str) {
     return new Uint8Array(
-        Array.from(str).map((value, index) => str.charCodeAt(index))
+      Array.from(str).map((value, index) => str.charCodeAt(index))
     );
   }
 
   static binary2String(U8Arr) {
     return U8Arr.reduce(
-        (acc, i) => (acc += String.fromCharCode.apply(null, [i])),
-        ""
+      (acc, i) => (acc += String.fromCharCode.apply(null, [i])),
+      ""
     );
   }
 
@@ -102,13 +102,13 @@ class ProtobufAdapter {
 
   serializeBinary() {
     return this.requestBody
-        .encode({ data: this.data, secretKey: this.secretKey })
-        .finish();
+      .encode({ data: this.data, secretKey: this.secretKey })
+      .finish();
   }
 
   make() {
     return ProtobufAdapter.base64Encode(
-        ProtobufAdapter.binary2String(this.serializeBinary())
+      ProtobufAdapter.binary2String(this.serializeBinary())
     );
   }
 }
